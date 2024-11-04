@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:math';
 
 class LadderPainter extends CustomPainter {
   final List<List<int>> route;
@@ -22,32 +21,34 @@ class LadderPainter extends CustomPainter {
       ..color = Colors.black
       ..strokeWidth = strokeWidth;
 
-    // Draw vertical ladder lines
-    for (int i = 0; i < route.length; i++) {
+    // Draw vertical lines
+    for (int i = 0; i < route.length + 1; i++) {
       canvas.drawLine(
         Offset(i * hGap, 0),
         Offset(i * hGap, size.height),
         paint,
       );
+    }
 
-      // Draw horizontal or diagonal connections between lines
+    // Draw connections based on route matrix
+    for (int i = 0; i < route.length; i++) {
       for (int j = 0; j < route[i].length; j++) {
         switch (route[i][j]) {
-          case 1: // Horizontal line
+          case 1: // Horizontal connection
             canvas.drawLine(
               Offset(i * hGap, j * vGap),
               Offset((i + 1) * hGap, j * vGap),
               paint,
             );
             break;
-          case 2: // Diagonal line downwards
+          case 2: // Diagonal down connection
             canvas.drawLine(
               Offset(i * hGap, j * vGap),
               Offset((i + 1) * hGap, (j + 1) * vGap),
               paint,
             );
             break;
-          case 3: // Diagonal line upwards
+          case 3: // Diagonal up connection
             canvas.drawLine(
               Offset(i * hGap, j * vGap),
               Offset((i + 1) * hGap, (j - 1) * vGap),
@@ -55,17 +56,10 @@ class LadderPainter extends CustomPainter {
             );
             break;
           default:
-            // No line
+            // No connection
             break;
         }
       }
-    }
-
-    // Draw sample player circles at the top of each vertical line
-    final playerPaint = Paint()..color = Colors.blue;
-    for (int i = 0; i < route.length; i++) {
-      final playerPosition = Offset(i * hGap + hGap / 2, playerRadius);
-      canvas.drawCircle(playerPosition, playerRadius, playerPaint);
     }
   }
 

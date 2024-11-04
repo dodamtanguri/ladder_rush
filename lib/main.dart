@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ladder_rush/screens/home.dart';
-import 'package:ladder_rush/widgets/ladder_game_widget.dart';
 
 void main() {
   runApp(const MyApp());

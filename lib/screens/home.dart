@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ladder_rush/screens/ladder_game.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -118,7 +119,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      // Draw button action
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => LadderGameScreen(
+                              participantCount: participantCount),
+                        ),
+                      );
                       print("Draw clicked");
                     },
                     style: ElevatedButton.styleFrom(
