@@ -1,0 +1,171 @@
+{
+	"Go Route Build Base": {
+		"prefix": "gor",
+		"description": "Go Route base template",
+		"body": [
+			"//-----------------------------------------------------------------------------",
+			"// ${CLIPBOARD} : ",
+			"//-----------------------------------------------------------------------------",
+			"@TypedGoRoute<${CLIPBOARD}Route>(",
+			"  path: ${1},",
+			")",
+			"class ${CLIPBOARD}Route extends GoRouteData {",
+			"  const ${CLIPBOARD}Route({required this.param1, required this.param2});",
+			"",
+			"  final String param1;",
+			"  final String param2;",
+			"",
+			"  @override",
+			"  Widget build(BuildContext context, GoRouterState state) => const ${CLIPBOARD}();",
+			"}"
+		]
+	},
+	"Auto generate part": {
+		"prefix": "generate_part",
+		"body": [
+			"part \"${TM_FILENAME_BASE}.g.dart\";",
+			"part \"${TM_FILENAME_BASE}.freezed.dart\";"
+		],
+		"description": "Auto generate part"
+	},
+	"Freezed base": {
+		"prefix": "freezed_base",
+		"body": [
+			"@freezed",
+			"class ${CLIPBOARD}Vo with _$${CLIPBOARD}Vo {",
+			"  const factory ${CLIPBOARD}Vo({",
+			"    required String test1,",
+			"  }) = _${CLIPBOARD}Vo;",
+			"",
+			"  factory ${CLIPBOARD}Vo.fromJson(Map<String, Object?> json) =>",
+			"      _$${CLIPBOARD}VoFromJson(json);",
+			"}"
+		],
+		"description": "Freezed base"
+	},
+	"Freezed base(no json serialize)": {
+		"prefix": "freezed_no_json",
+		"body": [
+			"@freezed",
+			"class ${CLIPBOARD}Vo with _$${CLIPBOARD}Vo {",
+			"  const factory ${CLIPBOARD}Vo({",
+			"    required String test1,",
+			"  }) = _${CLIPBOARD}Vo;",
+			"}"
+		],
+		"description": "Freezed base(no json serialize)"
+	},
+	"View base": {
+		"prefix": "view_base",
+		"body": [
+		  "import 'package:flutter/material.dart';",
+		  "import 'package:hooks_riverpod/hooks_riverpod.dart';",
+		  "",
+		  "class ${CLIPBOARD}View extends HookConsumerWidget {",
+		  "  const ${CLIPBOARD}View({",
+		  "    super.key,",
+		  "  });",
+		  "",
+		  "  @override",
+		  "  Widget build(BuildContext context, WidgetRef ref) {",
+		  "    return Scaffold(",
+		  "      appBar: AppBar(title: Text(\"Title\")),",
+		  "      body: Container(),",
+		  "    );",
+		  "  }",
+		  "}",
+		  ""
+		],
+		"description": "View base template"
+	},
+	"Widget base(riverpod)": {
+		"prefix": "widget_base_riverpod",
+		"body": [
+		  "import 'package:flutter/material.dart';",
+		  "import 'package:hooks_riverpod/hooks_riverpod.dart';",
+		  "",
+		  "class ${CLIPBOARD}Widget extends HookConsumerWidget {",
+		  "  const ${CLIPBOARD}Widget({",
+		  "    super.key,",
+		  "  });",
+		  "",
+		  "  @override",
+		  "  Widget build(BuildContext context, WidgetRef ref) {",
+		  "    return Container();",
+		  "  }",
+		  "}",
+		  ""
+		],
+		"description": "Widget base with Riverpod"
+	},
+	"Riverpod view model": {
+		"prefix": "view_model",
+		"body": [
+		  "import 'package:riverpod_annotation/riverpod_annotation.dart';",
+		  "",
+		  "part \"${TM_FILENAME_BASE}.g.dart\";",
+		  "",
+		  "@riverpod",
+		  "class ${CLIPBOARD}ViewModel extends _$${CLIPBOARD}ViewModel {",
+		  "  @override",
+		  "  bool build() {",
+		  "    init().then((value) {});",
+		  "    return true;",
+		  "  }",
+		  "",
+		  "  Future<bool> init() async {",
+		  "    return Future(() => true);",
+		  "  }",
+		  "}",
+		  ""
+		],
+		"description": "Riverpod view model"
+	},
+	"API file template": {
+		"prefix": "api_template",
+		"body": [
+			"import 'package:freezed_annotation/freezed_annotation.dart';",
+			"import 'package:http/http.dart' as http;",
+			"",
+			"part '${TM_FILENAME_BASE}.freezed.dart';",
+			"part '${TM_FILENAME_BASE}.g.dart';",
+			"",
+			"@freezed",
+			"class ${CLIPBOARD}ParamsVo with _$${CLIPBOARD}ParamsVo {",
+			  "  const factory ${CLIPBOARD}ParamsVo.path({required int fixme1}) = _PathParams;",
+			  "  const factory ${CLIPBOARD}ParamsVo.query({required String fixme2}) = _QueryParams;",
+			  "factory ${CLIPBOARD}ParamsVo.fromJson(Map<String, dynamic> json) => _${CLIPBOARD}ParamsVoFromJson(json);",
+			"}",
+			"",
+			"@freezed",
+			"class ${CLIPBOARD}RequestVo with _$${CLIPBOARD}RequestVo {",
+			"  const factory ${CLIPBOARD}RequestVo({",
+			"    required String fixme1,",
+			"  }) = _${CLIPBOARD}RequestVo;",
+			"",
+			"  factory ${CLIPBOARD}RequestVo.fromJson(Map<String, dynamic> json) =>",
+			"      _$${CLIPBOARD}RequestVoFromJson(json);",
+			"}",
+			"",
+			"@freezed",
+			"class ${CLIPBOARD}ResponseDataVo with _$${CLIPBOARD}ResponseDataVo  {",
+			"  const factory ${CLIPBOARD}ResponseDataVo ({",
+			"    required String fixme2,",
+			"  }) = _${CLIPBOARD}ResponseDataVo ;",
+			"",
+			"  factory ${CLIPBOARD}ResponseDataVo.fromJson(Map<String, dynamic> json) =>",
+			"      _$${CLIPBOARD}ResponseDataVoFromJson(json);",
+			"}",
+			"",
+			"typedef ${CLIPBOARD}ResponseVo = ApiResponse<${CLIPBOARD}ResponseDataVo?>;",
+			"",
+			"class ${CLIPBOARD}Api {",
+			"  Future<${CLIPBOARD}ResponseVo> fetchData(${CLIPBOARD}RequestVo request) async {",
+			"    // Implement API call here",
+			"  }",
+			"}",
+			""
+		],
+		"description": "General API file template"
+	}
+}
