@@ -126,6 +126,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               participantCount: participantCount),
                         ),
                       );
+
                       print("Draw clicked");
                     },
                     style: ElevatedButton.styleFrom(

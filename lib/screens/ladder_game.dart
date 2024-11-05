@@ -1,6 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:ladder_rush/models/ladder.dart';
+import 'package:ladder_rush/utils/list_extension.dart';
 import 'package:ladder_rush/widgets/ladder_painter.dart';
 
 class LadderGameScreen extends StatelessWidget {
@@ -10,6 +12,7 @@ class LadderGameScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    makeLine();
     final route =
         generateRandomRoute(columns: participantCount, rows: 10, p: 10);
     const double hGap = 100.0;
@@ -43,6 +46,7 @@ class LadderGameScreen extends StatelessWidget {
     final random = Random();
     final route =
         List.generate(columns - 1, (_) => List.generate(rows, (_) => 0));
+
     bool canAddConnection(int col, int row) {
       bool hasHorizontalAbove = row > 0 && route[col][row - 1] == 1;
 
@@ -90,5 +94,75 @@ class LadderGameScreen extends StatelessWidget {
     }
 
     return route;
+  }
+
+  //중복체크
+  bool hasDuplicatePoint(int verticalLineIndex, Point createdPoint,
+      List<Line> lines, bool isStartPt) {
+    var line = lines.firstWhere(
+        (l) => isStartPt
+            ? l.sx!.x == createdPoint.x && l.sx!.y == createdPoint.y
+            : l.ex!.x == createdPoint.x && l.ex!.y == createdPoint.y,
+        orElse: () => const Line());
+
+    return !(line.sx == null && line.ex == null);
+  }
+
+  LadderEx makeLine() {
+    LadderEx ladderEx = const LadderEx();
+    final random = Random();
+    Line line = const Line();
+    List<Line> lines = List.empty(growable: true);
+    int currentVerticalIndex = 0;
+    int temp = 0;
+    while (currentVerticalIndex < 3) {
+      while (temp < 3) {
+        //점하나 만드는 함수 만들어주는걸로 리팩토링 하기.
+        // while (currentVerticalIndex < ladderEx.verticalCount) {
+        //시작점 만들기
+        while (true) {
+          Point startPt = Point(
+            y: random.nextInt(10),
+            x: currentVerticalIndex * 10,
+          );
+          if (ladderEx.lines == null ||
+              !hasDuplicatePoint(temp, startPt, ladderEx.lines!, true)) {
+            line = line.copyWith(sx: startPt);
+            break;
+          }
+        }
+        //끝점 만들기
+
+        while (true) {
+          Point endPt = Point(
+            y: random.nextInt(10),
+            x: (currentVerticalIndex + 1) * 10,
+          );
+          if (ladderEx.lines == null ||
+              !hasDuplicatePoint(temp, endPt, ladderEx.lines!, false)) {
+            line = line.copyWith(ex: endPt);
+            break;
+          }
+        }
+
+        lines.add(line);
+        if (ladderEx.lines == null) {
+          ladderEx = ladderEx.copyWith(lines: List.empty(growable: true));
+        }
+
+        ladderEx = ladderEx.copyWith(lines: lines.copyAddAll(lines));
+        // ladderEx.lineMap![currentVerticalIndex] = lines;
+        //sorting 하기
+
+        //currentVerticalIndex++;
+        temp++;
+      }
+      temp = 0;
+      currentVerticalIndex++;
+    }
+    for (Line line in ladderEx.lines!) {
+      print('[line] : $line');
+    }
+    return ladderEx;
   }
 }

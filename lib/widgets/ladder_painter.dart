@@ -21,7 +21,6 @@ class LadderPainter extends CustomPainter {
       ..color = Colors.black
       ..strokeWidth = strokeWidth;
 
-    // Draw vertical lines
     for (int i = 0; i < route.length + 1; i++) {
       canvas.drawLine(
         Offset(i * hGap, 0),
@@ -30,25 +29,24 @@ class LadderPainter extends CustomPainter {
       );
     }
 
-    // Draw connections based on route matrix
     for (int i = 0; i < route.length; i++) {
       for (int j = 0; j < route[i].length; j++) {
         switch (route[i][j]) {
-          case 1: // Horizontal connection
+          case 1: // 가로선
             canvas.drawLine(
               Offset(i * hGap, j * vGap),
               Offset((i + 1) * hGap, j * vGap),
               paint,
             );
             break;
-          case 2: // Diagonal down connection
+          case 2: // 대각선 아래
             canvas.drawLine(
               Offset(i * hGap, j * vGap),
               Offset((i + 1) * hGap, (j + 1) * vGap),
               paint,
             );
             break;
-          case 3: // Diagonal up connection
+          case 3: // 대각선 위로
             canvas.drawLine(
               Offset(i * hGap, j * vGap),
               Offset((i + 1) * hGap, (j - 1) * vGap),
@@ -56,7 +54,6 @@ class LadderPainter extends CustomPainter {
             );
             break;
           default:
-            // No connection
             break;
         }
       }

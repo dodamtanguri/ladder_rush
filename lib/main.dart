@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ladder_rush/game/ladder_game.dart';
 import 'package:ladder_rush/screens/home.dart';
 
 void main() {
