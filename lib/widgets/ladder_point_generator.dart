@@ -153,23 +153,3 @@ class LadderPointGenerator {
         hmargin: hmargin);
   }
 }
-
-// void main() {
-//   // LadderPointGenerator 인스턴스 생성
-//   LadderPointGenerator generator = LadderPointGenerator(
-//       width: 100,
-//       height: 400,
-//       verticalLineCount: 4,
-//       vmargin: 15,
-//       hmargin: 20,
-//       minPointCount: 3,
-//       maxPointCount: 10);
-
-//   // 사다리의 각 수직선에 대한 점을 생성하고 출력
-//   LadderInfo ladderPoints = generator.generateLadderPoints();
-
-//   print(ladderPoints.toString());
-//   for (int i = 0; i < ladderPoints.ladderLines.length; i++) {
-//     print('Vertical Line ${i + 1}: ${ladderPoints.ladderLines[i]}');
-//   }
-// }
